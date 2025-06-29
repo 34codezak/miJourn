@@ -1,0 +1,7 @@
+<h2>{{ entry.title }}</h2>
+<p>{{ entry.content }}</p>
+<p><em>Created at: {{ entry.created_at }}</em></p>
+
+<a href="{% url 'entries:update_entry' entry.id %}">Update</a>
+<a href="{% url 'entries:delete_entry' entry.id %}">Delete</a> 
+<a href="{% url 'entries:view_all_entries' %}">Back</a>

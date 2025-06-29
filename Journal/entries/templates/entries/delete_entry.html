@@ -1,0 +1,9 @@
+<h2>Delete Entry</h2>
+<p>Are you sure you want to delete "{{ entry.title }}"?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+</form>
+
+<a href="{% url 'entries:view_entry' entry.id %}">Cancel</a>
