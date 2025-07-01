@@ -21,7 +21,7 @@ def create_entry(request):
             entry = form.save(commit=False) 
             entry.user = request.user
             entry.save()
-            return render(request, 'entries/view_entry.html', entry_id=entry.id) 
+            return redirect(request, 'entries/view_entry.html', entry_id=entry.id) 
     else:
         form = EntryForm()
     
