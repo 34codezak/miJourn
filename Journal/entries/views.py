@@ -21,7 +21,9 @@ def create_entry(request):
             entry = form.save(commit=False) 
             entry.user = request.user
             entry.save()
-            return redirect(request, 'entries/view_entry.html', entry_id=entry.id) 
+
+            # Using keyword args
+            return redirect(request, 'entries:view_entry.html', entry.id) 
     else:
         form = EntryForm()
     
@@ -37,7 +39,7 @@ def update_entry(request, entry_id):
         form = EntryForm(request.POST, instance=entry)
         if form.is_valid():
             form.save()
-            return redirect('entries:view_entry', entry_id=entry.id)
+            return redirect(request, 'entries:view_entry', entry_id=entry.id)
     else:
         form = EntryForm(instance=entry)
     
@@ -51,7 +53,7 @@ def delete_entry(request, entry_id):
     if request.method == 'POST':
         entry.delete()
         return redirect('entries:home')
-    return render(request, 'entries/delete_confirm.html', {'entry': entry})
+    return render(request, 'entries/delete_entry.html', {'entry': entry})
 
 # View entry view
 def view_entry(request, entry_id):
