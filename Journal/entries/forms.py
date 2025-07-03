@@ -16,11 +16,11 @@ class EntryForm(forms.ModelForm):
             'tags': 'Tags',
         }
 
-        help_texts = {
+        """help_texts = {
             'title': 'Enter the title of the entry',
             'content': 'Enter the content of the entry',
             'tags': 'Select the tags for the entry',
-        }
+        }"""
 
         error_messages = {
             'title': {

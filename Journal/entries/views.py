@@ -23,11 +23,13 @@ def create_entry(request):
             entry.save()
 
             # Using keyword args
-            return redirect(request, 'entries:view_entry.html', entry.id) 
+            return redirect('entries:view_entry', entry.id)
     else:
         form = EntryForm()
     
     return render(request, 'entries/create_entry.html', {'form': form})
+
+    
     
 
 # Update entry view
