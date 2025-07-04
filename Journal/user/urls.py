@@ -8,8 +8,8 @@ app_name = 'user'
 urlpatterns = [
     path('', views.HomeView, name='home'),
     path('signup/', SignupView.as_view(), name='signup'),
-    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
-    path('logout/', views.LogoutView, name='logout'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', views.logout_view, name='logout'),
     
     # Password reset URLs - consistent naming
     path('password-reset/',

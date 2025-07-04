@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from .forms import LoginForm, SignUpForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
-
 
 
 # Home view
@@ -33,8 +32,10 @@ class SignupView(CreateView):
     template_name = 'signup.html'
     success_url = reverse_lazy('entries:home')
     
-class LogoutView:
-    success_url = reverse_lazy('entries:home')
+def logout_view(request):
+    logout(request)
+    return redirect('entries:home')
+
 
 class PasswordResetView:
     template_name = 'password_reset.html'

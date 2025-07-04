@@ -9,6 +9,15 @@
                 </a>
             </div>
 
+            <!-- User Information and Logout -->
+             <div class="alert alert-info" role="alert">
+                Logged in as: {{ user.username }}
+                <h2>Hi, {{ user.username }} </h2>
+                <a href="{% url 'user:logout' %}" class="btn btn-primary">
+                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                </a>
+             </div>
+
             <!-- Entries List -->
             <div class="card shadow-sm">
                 <div class="card-body p-0">

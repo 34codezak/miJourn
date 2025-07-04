@@ -41,7 +41,7 @@ def update_entry(request, entry_id):
         form = EntryForm(request.POST, instance=entry)
         if form.is_valid():
             form.save()
-            return redirect(request, 'entries:view_entry', entry_id=entry.id)
+            return redirect('entries:view_entry', entry_id=entry.id)
     else:
         form = EntryForm(instance=entry)
     
