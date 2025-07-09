@@ -23,4 +23,5 @@ urlpatterns = [
     path('user/login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('', include('entries.urls')),
     path('', include('user.urls')),
+    path('social-auth/', include('social_django.urls', namespace='social')),
 ]

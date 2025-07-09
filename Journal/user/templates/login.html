@@ -142,6 +142,12 @@
                     <div class="auth-header">
                         <h2><i class="fas fa-sign-in-alt me-2"></i>Welcome Back</h2>
                         <p class="mb-0">Sign in to continue to your account</p>
+                        
+                        <div class="home">
+                        <a href="{% url 'entries:home' %}" class="btn btn-primary">
+                            <i class="fas fa-home me-2"></i>Home >
+                        </a>
+                        </div>
                     </div>
                     
                     <div class="auth-body">
@@ -193,16 +199,16 @@
                             </div>
                             
                             <div class="social-login">
-                                <a href="#" class="social-btn" style="background-color: #3b5998;">
+                                <a href="{% url 'social:begin' 'facebook' %}" class="social-btn" style="background-color: #3b5998;">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
-                                <a href="#" class="social-btn" style="background-color: #1da1f2;">
+                                <a href="{% url 'social:begin' 'twitter' %}" class="social-btn" style="background-color: #1da1f2;">
                                     <i class="fab fa-twitter"></i>
                                 </a>
-                                <a href="#" class="social-btn" style="background-color: #db4437;">
+                                <a href="{% url 'social:begin' 'google-oauth2' %}" class="social-btn" style="background-color: #db4437;">
                                     <i class="fab fa-google"></i>
                                 </a>
-                                <a href="#" class="social-btn" style="background-color: #333;">
+                                <a href="{% url 'social:begin' 'github' %}" class="social-btn" style="background-color: #333;">
                                     <i class="fab fa-github"></i>
                                 </a>
                             </div>

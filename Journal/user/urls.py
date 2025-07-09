@@ -2,6 +2,7 @@ from django.urls import path, include
 from . import views
 from django.contrib.auth import views as auth_views
 from .views import SignupView
+from .views import LogoutView
 
 app_name = 'user'
 
@@ -9,7 +10,8 @@ urlpatterns = [
     path('', views.HomeView, name='home'),
     path('signup/', SignupView.as_view(), name='signup'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', views.logout_view, name='logout'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='password_reset.html'), name='password_reset'),
     
     # Password reset URLs - consistent naming
     path('password-reset/',

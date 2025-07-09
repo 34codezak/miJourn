@@ -71,3 +71,42 @@ def view_all_entries(request):
 # View entry details view
 def view_entry_details(request):
     return render(request, 'entries/entry_details.html')
+
+from django.db.models import Q
+from .models import Entry
+from .forms import SearchForm
+
+def search_entries(request):
+    form = SearchForm()
+    results = []
+    q = None
+    
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['q']
+            results = Entry.objects.filter(
+                Q(title__icontains=query) | 
+                Q(content__icontains=query)
+            )
+            q = query
+    
+    return render(request, 'entries/search_entries.html', {'form': form, 'results': results, 'q': q})
+
+from .forms import MultiDeleteForm
+from django.contrib import messages
+
+def multi_delete(request):
+    if request.method == 'POST':
+        form = MultiDeleteForm(request.POST)
+        if form.is_valid():
+            selected = form.cleaned_data['seletions']
+            count = selected.count()
+            messages.success(request, f'Deleted {count} entries successfully.')
+            return redirect('entries:all_entries')
+        else:
+            form = MultiDeleteForm()
+
+        return render(request, 'entries/multi_delete.html', {'form': form})
+    
+    

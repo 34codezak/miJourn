@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card auth-card shadow-lg">
+                <div class="card-header auth-card-header text-center py-3">
+                    <h2 class="mb-0">Search Entries</h2>
+                </div>
+                
+                <div class="card-body p-4">
+                    <form method="get" action="{% url 'journal:search' %}">
+                        <div class="input-group mb-4">
+                            {{ form.query }}
+                            <button class="btn btn-auth-primary" type="submit">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </div>
+                    </form>
+                    
+                    {% if query %}
+                        <h4 class="mb-3">Results for "{{ query }}"</h4>
+                        
+                        {% if results %}
+                            <div class="list-group">
+                                {% for entry in results %}
+                                <div class="list-group-item bg-dark text-light border-secondary mb-2">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{ entry.title }}</h5>
+                                        <small>{{ entry.created_at|date:"M d, Y" }}</small>
+                                    </div>
+                                    <p class="mb-1">{{ entry.content|truncatewords:20 }}</p>
+                                    <a href="{% url 'journal:entry_detail' entry.id %}" class="text-warning">Read more</a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-center text-muted">No results found</p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

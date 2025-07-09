@@ -31,11 +31,24 @@ class SignupView(CreateView):
     form_class = UserCreationForm
     template_name = 'signup.html'
     success_url = reverse_lazy('entries:home')
+
+# Logout view   
+from django.views import View
+from django.shortcuts import redirect
+from django.contrib.auth import logout
+
+class LogoutView(View):
+    def get(self, request):
+        return self.process_logout(request)
     
-def logout_view(request):
-    logout(request)
-    return redirect('entries:home')
+    def post(self, request):
+        return self.process_logout(request)
+    
+    def process_logout(self, request):
+        logout(request)
+        return redirect('user:login')
 
 
 class PasswordResetView:
+    form_class = UserCreationForm
     template_name = 'password_reset.html'

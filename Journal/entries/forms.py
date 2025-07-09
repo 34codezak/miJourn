@@ -45,3 +45,13 @@ class UpdateEntryForm(EntryForm):
     def __init__(self, *args, **kwargs):
         super(UpdateEntryForm, self).__init__(*args, **kwargs)
         self.fields['tags'].queryset = self.fields['tags'].queryset.order_by('name')
+
+class SearchForm(forms.Form):
+    q = forms.CharField(label='Search', max_length=100, required=False)
+    label = '',
+    widgets = {
+        'q': forms.TextInput(attrs={'class' : 'form-control', 'placeholder': 'Search for an entry'})
+    }
+
+class MultiDeleteForm(forms.Form):
+    selections = forms.ModelMultipleChoiceField(queryset=Entry.objects.all(), widget=forms.CheckboxSelectMultiple)
