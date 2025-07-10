@@ -4,7 +4,6 @@ cffi==1.17.1
 charset-normalizer==3.4.2
 cryptography==45.0.5
 defusedxml==0.7.1
-dj-database-url==3.0.1
 Django==5.2.3
 djangorestframework==3.16.0
 gunicorn==23.0.0
