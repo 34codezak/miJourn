@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,11 +25,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-05qfvk6!6msn=ovnb&wnx&4s@=40qx(js+b1_5fy(uistaay^x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ThoughtFlow.onrender.com', '127.0.0.1', 'localhost']
+
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
 
 
 # Application definition
@@ -88,7 +93,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ThoughtFlow',         # Database name
+        'NAME': 'Thought',         # Database name
         'USER': 'zaki',     # Username you created
         'PASSWORD': 'your_password', # Password you set
         'HOST': 'localhost',          # Or your server IP
@@ -132,6 +137,8 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+SECRET_KEY = os.environ.get('SECRET_KEY')  # Add this in settings.py
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
