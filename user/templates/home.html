@@ -1,0 +1,32 @@
+<h1>A home to your thoughts</h1>
+
+<nav>
+    <a href="{% url 'entries:home' %}">Home</a>
+    <a href="{% url 'entries:all_entries' %}">All Entries</a>
+</nav>
+
+{% if user.is_authenticated %}
+    <p>You are logged in as {{ user.username }}.</p>
+    <p><a href="{% url 'user:logout' %}">Logout</a></p>
+{% else %}
+    <p>You are not logged in.</p>
+    <p><a href="{% url 'user:login' %}">Login</a></p>
+{% endif %}
+
+{% if user.is_authenticated %}
+    <p><a href="{% url 'entries:create_entry' %}">+New Entry</a></p>
+{% endif %}
+
+<ul>
+    {% for entry in Entry %}
+    <li>
+        <a href="{% url 'entries:view_entry' entry.id %}">{{ entry.title }}</a>
+        ({{ entry.created_at }})
+    </li>
+    {% empty %}
+    <li>No entries yet</li>
+    {% endfor %}
+</ul>
+
+<a href="url '{% url 'entries:home' %}">My Thoughts</a>
+<a href="url '{% url 'entries:all_entries' %}">All my Thoughts</a>

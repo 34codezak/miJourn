@@ -1,0 +1,7 @@
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="btn btn-danger">
+        <i class="fas fa-trash me-2"></i>Delete
+    </button>
+</form>
