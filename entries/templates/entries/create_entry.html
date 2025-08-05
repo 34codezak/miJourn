@@ -1,12 +1,13 @@
+<!-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Entry</title>
-    <!-- Bootstrap 5 CSS -->
+    <!-- Bootstrap 5 CSS  
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
+    <!-- Font Awesome  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -76,10 +77,10 @@
         </div>
     </div>
 
-    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <!-- Bootstrap 5 JS Bundle with Popper  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Form Validation Script -->
+    <!-- Form Validation Script  
     <script>
     (function () {
         'use strict'
@@ -92,6 +93,144 @@
                         event.stopPropagation()
                     }
                     form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+    </script>
+</body>
+</html>
+-->
+
+<!--
+w3.css
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Entry</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Background with overlay */
+        body {
+            background: 
+                linear-gradient(rgba(245, 247, 250, 0.85), rgba(195, 207, 226, 0.85)),
+                url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism effects */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.3s;
+            color: #3a4a6e;
+        }
+
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.7);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .glass-input {
+            background: rgba(255, 255, 255, 0.5) !important;
+            border: 1px solid rgba(255, 255, 255, 0.7) !important;
+        }
+
+        /* Form header */
+        .form-header {
+            background: rgba(58, 74, 110, 0.8);
+            color: white;
+            border-radius: 16px 16px 0 0;
+        }
+
+        /* Custom colors */
+        .text-primary {
+            color: #3a4a6e !important;
+        }
+    </style>
+</head>
+<body class="w3-padding-32">
+    <div class="w3-container" style="max-width:600px; margin:auto;">
+        <div class="glass-card">
+            <!-- Form Header -->
+            <div class="w3-padding form-header">
+                <div class="w3-row">
+                    <div class="w3-col s10 m10">
+                        <h2 class="w3-medium"><i class="fas fa-plus-circle w3-margin-right"></i>New Entry</h2>
+                    </div>
+                    <div class="w3-col s2 m2 w3-right-align">
+                        <a href="{% url 'entries:home' %}" class="w3-button glass-btn w3-round-large w3-tiny">
+                            <i class="fas fa-home"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Body -->
+            <div class="w3-padding">
+                <form method="post" class="w3-container">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                    <div class="w3-margin-bottom">
+                        <label class="w3-text-primary"><b>{{ field.label }}</b></label>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <span class="w3-small w3-text-grey">{{ field.help_text }}</span>
+                        {% endif %}
+                        {% for error in field.errors %}
+                        <div class="w3-text-red w3-small">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    
+                    <div class="w3-row w3-margin-top">
+                        <div class="w3-col s6 w3-left-align">
+                            <a href="{% url 'entries:view_all_entries' %}" class="w3-button glass-btn w3-round-large">
+                                <i class="fas fa-times w3-margin-right"></i>Cancel
+                            </a>
+                        </div>
+                        <div class="w3-col s6 w3-right-align">
+                            <button type="submit" class="w3-button glass-btn w3-round-large" 
+                                    style="background-color:rgba(58, 74, 110, 0.8);color:white;">
+                                <i class="fas fa-save w3-margin-right"></i>Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Validation Script -->
+    <script>
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('form')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
                 }, false)
             })
     })()

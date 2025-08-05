@@ -1,4 +1,5 @@
-<div class="container mt-5">
+<!--
+div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
             <div class="d-flex justify-content-between align-items-center mb-4">
@@ -44,7 +45,148 @@
     </div>
 </div>
 
-<!-- Required CSS/JS -->
+<!-- Required CSS/JS  
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+-->
+
+<!--
+w3.css
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Entry - {{ entry.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Background with overlay */
+        body {
+            background: 
+                linear-gradient(rgba(245, 247, 250, 0.85), rgba(195, 207, 226, 0.85)),
+                url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism effects */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.3s;
+            color: #3a4a6e;
+        }
+
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.7);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .glass-btn-primary {
+            background: rgba(58, 74, 110, 0.8);
+            color: white;
+        }
+
+        .glass-btn-primary:hover {
+            background: rgba(58, 74, 110, 0.9);
+        }
+
+        /* Form elements */
+        .glass-input {
+            background: rgba(255, 255, 255, 0.5) !important;
+            border: 1px solid rgba(255, 255, 255, 0.7) !important;
+        }
+
+        .glass-input:focus {
+            border-color: rgba(58, 74, 110, 0.8) !important;
+            box-shadow: 0 0 0 2px rgba(58, 74, 110, 0.2) !important;
+        }
+
+        /* Error styling */
+        .error-text {
+            color: #dc3545;
+            font-size: 0.875em;
+            margin-top: 0.25rem;
+        }
+
+        /* Custom colors */
+        .text-primary {
+            color: #3a4a6e !important;
+        }
+    </style>
+</head>
+<body class="w3-padding-32">
+    <div class="w3-container" style="max-width:600px; margin:auto;">
+        <!-- Header -->
+        <div class="w3-row w3-margin-bottom">
+            <div class="w3-col s8">
+                <h2 class="w3-medium text-primary"><i class="fas fa-edit w3-margin-right"></i>Edit Entry</h2>
+            </div>
+            <div class="w3-col s4 w3-right-align">
+                <a href="{% url 'entries:view_entry' entry.id %}" class="w3-button glass-btn w3-round-large">
+                    <i class="fas fa-arrow-left w3-margin-right"></i>Back
+                </a>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="glass-card w3-padding">
+            <form method="post" action="{% url 'entries:update_entry' entry.id %}">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                <div class="w3-margin-bottom">
+                    <label class="w3-text-primary"><b>{{ field.label }}</b></label>
+                    {{ field }}
+                    {% if field.help_text %}
+                    <div class="w3-small w3-text-grey">{{ field.help_text }}</div>
+                    {% endif %}
+                    {% for error in field.errors %}
+                    <div class="error-text">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+                
+                <div class="w3-right-align">
+                    <button type="submit" class="w3-button glass-btn glass-btn-primary w3-round-large">
+                        <i class="fas fa-save w3-margin-right"></i>Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Form Validation Script -->
+    <script>
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('form')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+    </script>
+</body>
+</html>

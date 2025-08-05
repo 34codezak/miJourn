@@ -1,3 +1,4 @@
+<!-->
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0">All Entries</h2>
@@ -11,7 +12,7 @@
         </a>
     </div>
 
-    <!-- Search Form -->
+    <!-- Search Form  
             <form method="get" class="mb-4" >
                 <div class="input-group">
                     <input type="text" name="q" class="form-control" placeholder="Search for an entry">
@@ -41,8 +42,141 @@
     {% endif %}
 </div>
 
-<!-- Required CSS/JS (put in your base template) -->
+<!-- Required CSS/JS (put in your base template)  
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+-->
+
+<!--
+w3.css
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Entries</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Background with overlay */
+        body {
+            background: 
+                linear-gradient(rgba(245, 247, 250, 0.85), rgba(195, 207, 226, 0.85)),
+                url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism effects */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.3s;
+            color: #3a4a6e;
+        }
+
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.7);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Search input */
+        .glass-input {
+            background: rgba(255, 255, 255, 0.5) !important;
+            border: 1px solid rgba(255, 255, 255, 0.7) !important;
+        }
+
+        /* Entry item hover */
+        .entry-item:hover {
+            background: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        /* Custom colors */
+        .text-primary {
+            color: #3a4a6e !important;
+        }
+    </style>
+</head>
+<body class="w3-padding-32">
+    <div class="w3-container" style="max-width:800px; margin:auto;">
+        <!-- Header -->
+        <div class="glass-card w3-padding w3-margin-bottom">
+            <div class="w3-row">
+                <div class="w3-col s12 m6">
+                    <h2 class="w3-xlarge text-primary"><b>All Entries</b></h2>
+                </div>
+                <div class="w3-col s12 m6 w3-right-align">
+                    <a href="{% url 'entries:create_entry' %}" class="w3-button glass-btn w3-round-large w3-small">
+                        <i class="fas fa-plus w3-margin-right"></i>New Entry
+                    </a>
+                    <a href="{% url 'entries:home' %}" class="w3-button glass-btn w3-round-large w3-small">
+                        <i class="fas fa-home w3-margin-right"></i>Home
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Form -->
+        <form method="get" class="w3-margin-bottom">
+            <div class="w3-row">
+                <div class="w3-col s9 m10">
+                    <input type="text" name="q" class="w3-input glass-input w3-round-large" 
+                           placeholder="Search for an entry..." style="height:42px;">
+                </div>
+                <div class="w3-col s3 m2">
+                    <button type="submit" class="w3-button glass-btn w3-round-large" style="height:42px;width:100%;">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Entries List -->
+        {% if entries %}
+        <div class="glass-card">
+            <div class="w3-ul" style="margin:0;">
+                {% for entry in entries %}
+                <a href="{% url 'entries:view_entry' entry.id %}" 
+                   class="entry-item w3-padding-16 w3-hover-white" 
+                   style="display:block; border-bottom:1px solid rgba(255,255,255,0.3); text-decoration:none;">
+                    <div class="w3-row">
+                        <div class="w3-col s10">
+                            <span class="w3-medium text-primary"><b>{{ entry.title }}</b></span><br>
+                            <span class="w3-small w3-text-grey">{{ entry.created_at }}</span>
+                        </div>
+                        <div class="w3-col s2 w3-center">
+                            <i class="fas fa-chevron-right w3-text-grey"></i>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <div class="glass-card w3-padding-32 w3-center">
+            <i class="fas fa-info-circle w3-text-grey" style="font-size:48px;"></i>
+            <p class="w3-medium w3-text-grey">No entries found</p>
+            <a href="{% url 'entries:create_entry' %}" class="w3-button glass-btn w3-round-large" 
+               style="background-color:rgba(58, 74, 110, 0.8);color:white;">
+                <i class="fas fa-plus w3-margin-right"></i>Create First Entry
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
