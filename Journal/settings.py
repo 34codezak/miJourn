@@ -145,10 +145,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = 'login'  # This should match the name in your urls.py
-LOGIN_REDIRECT_URL = 'home'  # Where to redirect after login
-LOGOUT_REDIRECT_URL = 'home'  # Where to redirect after logout
-
+LOGIN_URL = 'login'  # This can stay as is if your login URL isn't namespaced
+LOGIN_REDIRECT_URL = 'entries:home'  # Add namespace
+LOGOUT_REDIRECT_URL = 'entries:home'  # Add namespace
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'your-smtp-server.com'

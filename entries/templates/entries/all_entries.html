@@ -153,7 +153,7 @@ w3.css
                 {% for entry in entries %}
                 <a href="{% url 'entries:view_entry' entry.id %}" 
                    class="entry-item w3-padding-16 w3-hover-white" 
-                   style="display:block; border-bottom:1px solid rgba(255,255,255,0.3); text-decoration:none;">
+                   style="display:block; border-bottom:1px solid rgba(255,255,255,0.3); text-decoration:none; padding-left: 5px;">
                     <div class="w3-row">
                         <div class="w3-col s10">
                             <span class="w3-medium text-primary"><b>{{ entry.title }}</b></span><br>
