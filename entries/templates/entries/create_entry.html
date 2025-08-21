@@ -104,7 +104,6 @@
 <!--
 w3.css
 -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -113,70 +112,194 @@ w3.css
     <title>New Entry | ThoughtFlow</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
-        /* Background with overlay */
+        /* Journal-themed styling */
         body {
             background: 
-                linear-gradient(rgba(245, 247, 250, 0.85), rgba(195, 207, 226, 0.85)),
-                url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+                url('https://images.unsplash.com/photo-1601662528567-526cd06f6582?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
             min-height: 100vh;
+            font-family: 'Crimson Text', serif;
+            color: #3c2f23;
         }
 
-        /* Glassmorphism effects */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        /* Journal paper effect for content */
+        .journal-paper {
+            background: rgba(249, 245, 237, 0.95);
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.1) inset;
+            position: relative;
+            overflow: hidden;
         }
 
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            transition: all 0.3s;
-            color: #3a4a6e;
+        .journal-paper::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 30px;
+            height: 100%;
+            width: 1px;
+            background: rgba(180, 160, 120, 0.3);
         }
 
-        .glass-btn:hover {
-            background: rgba(255, 255, 255, 0.7);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        /* Journal lines for text areas */
+        .journal-lines {
+            background-image: repeating-linear-gradient(
+                transparent 0px,
+                transparent 23px,
+                rgba(180, 160, 120, 0.1) 23px,
+                rgba(180, 160, 120, 0.1) 24px
+            );
+            padding-left: 50px !important;
+            font-family: 'Crimson Text', serif;
+            line-height: 24px;
         }
 
-        .glass-input {
-            background: rgba(255, 255, 255, 0.5) !important;
-            border: 1px solid rgba(255, 255, 255, 0.7) !important;
+        /* Header styling */
+        .journal-header {
+            background: rgba(139, 90, 43, 0.9) !important;
+            color: #f9f5ed !important;
+            border-bottom: 2px solid #c5ab87;
+            font-family: 'Crimson Pro', serif;
         }
 
-        /* Form header */
-        .form-header {
-            background: rgba(58, 74, 110, 0.8);
-            color: white;
-            border-radius: 16px 16px 0 0;
-        }
-
-        /* Custom colors */
+        /* Custom text colors */
         .text-primary {
-            color: #3a4a6e !important;
+            color: #8b5a2b !important;
+        }
+
+        .text-secondary {
+            color: #6b4c2a !important;
+        }
+
+        /* Button styling */
+        .journal-btn {
+            background: rgba(222, 208, 182, 0.7);
+            border: 1px solid #c5ab87;
+            color: #5c4323;
+            transition: all 0.3s;
+            font-family: 'Crimson Pro', serif;
+        }
+
+        .journal-btn:hover {
+            background: rgba(196, 177, 143, 0.8);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
+            color: #4a3519;
+        }
+
+        .journal-btn-primary {
+            background: rgba(139, 90, 43, 0.9);
+            color: #f9f5ed;
+            border: 1px solid #6b4c2a;
+        }
+
+        .journal-btn-primary:hover {
+            background: rgba(107, 76, 42, 0.95);
+            color: white;
+        }
+
+        /* Input styling */
+        .journal-input {
+            background: rgba(249, 245, 237, 0.7) !important;
+            border: 1px solid #c5ab87 !important;
+            font-family: 'Crimson Text', serif;
+            color: #5c4323;
+            border-radius: 4px !important;
+        }
+
+        .journal-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(139, 90, 43, 0.3);
+        }
+
+        textarea.journal-input {
+            min-height: 200px;
+            line-height: 24px;
+        }
+
+        /* Label styling */
+        .journal-label {
+            font-family: 'Crimson Pro', serif;
+            font-weight: 600;
+        }
+
+        /* Help text styling */
+        .journal-help {
+            color: #8b7d6b !important;
+            font-style: italic;
+            font-size: 0.9em;
+        }
+
+        /* Error text styling */
+        .journal-error {
+            color: #a52a2a !important;
+            font-style: italic;
+        }
+
+        /* Decorative corner elements */
+        .corner {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-color: #c5ab87;
+            border-style: solid;
+            border-width: 0;
+        }
+
+        .corner-tl {
+            top: 10px;
+            left: 10px;
+            border-top-width: 1px;
+            border-left-width: 1px;
+        }
+
+        .corner-tr {
+            top: 10px;
+            right: 10px;
+            border-top-width: 1px;
+            border-right-width: 1px;
+        }
+
+        .corner-bl {
+            bottom: 10px;
+            left: 10px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+        }
+
+        .corner-br {
+            bottom: 10px;
+            right: 10px;
+            border-bottom-width: 1px;
+            border-right-width: 1px;
+        }
+
+        /* Icons */
+        .fa-home, .fa-times, .fa-save, .fa-plus-circle {
+            color: #f9f5ed;
         }
     </style>
 </head>
 <body class="w3-padding-32">
     <div class="w3-container" style="max-width:600px; margin:auto;">
-        <div class="glass-card">
+        <div class="journal-paper">
+            <div class="corner corner-tl"></div>
+            <div class="corner corner-tr"></div>
+            <div class="corner corner-bl"></div>
+            <div class="corner corner-br"></div>
+            
             <!-- Form Header -->
-            <div class="w3-padding form-header">
+            <div class="w3-padding journal-header">
                 <div class="w3-row">
                     <div class="w3-col s10 m10">
-                        <h2 class="w3-medium"><i class="fas fa-plus-circle w3-margin-right"></i>New Entry</h2>
+                        <h2 class="w3-medium"><i class="fas fa-feather w3-margin-right"></i>New Journal Entry</h2>
                     </div>
                     <div class="w3-col s2 m2 w3-right-align">
-                        <a href="{% url 'entries:home' %}" class="w3-button glass-btn w3-round-large w3-tiny">
+                        <a href="{% url 'entries:home' %}" class="w3-button journal-btn w3-round">
                             <i class="fas fa-home"></i>
                         </a>
                     </div>
@@ -190,27 +313,30 @@ w3.css
                     
                     {% for field in form %}
                     <div class="w3-margin-bottom">
-                        <label class="w3-text-primary"><b>{{ field.label }}</b></label>
-                        {{ field }}
+                        <label class="w3-text-primary journal-label">{{ field.label }}</label>
+                        {% if field.name == 'content' %}
+                            {{ field }}
+                        {% else %}
+                            {{ field }}
+                        {% endif %}
                         {% if field.help_text %}
-                        <span class="w3-small w3-text-grey">{{ field.help_text }}</span>
+                        <span class="w3-small journal-help">{{ field.help_text }}</span>
                         {% endif %}
                         {% for error in field.errors %}
-                        <div class="w3-text-red w3-small">{{ error }}</div>
+                        <div class="w3-small journal-error">{{ error }}</div>
                         {% endfor %}
                     </div>
                     {% endfor %}
                     
                     <div class="w3-row w3-margin-top">
                         <div class="w3-col s6 w3-left-align">
-                            <a href="{% url 'entries:view_all_entries' %}" class="w3-button glass-btn w3-round-large">
+                            <a href="{% url 'entries:view_all_entries' %}" class="w3-button journal-btn w3-round">
                                 <i class="fas fa-times w3-margin-right"></i>Cancel
                             </a>
                         </div>
                         <div class="w3-col s6 w3-right-align">
-                            <button type="submit" class="w3-button glass-btn w3-round-large" 
-                                    style="background-color:rgba(58, 74, 110, 0.8);color:white;">
-                                <i class="fas fa-save w3-margin-right"></i>Save
+                            <button type="submit" class="w3-button journal-btn journal-btn-primary w3-round">
+                                <i class="fas fa-save w3-margin-right"></i>Save Entry
                             </button>
                         </div>
                     </div>
@@ -234,6 +360,22 @@ w3.css
                 }, false)
             })
     })()
+    </script>
+
+    <!-- Add journal lines to content textarea -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentTextarea = document.querySelector('textarea');
+            if (contentTextarea) {
+                contentTextarea.classList.add('journal-lines');
+            }
+            
+            // Add journal styling to all input fields
+            const inputFields = document.querySelectorAll('input[type="text"], input[type="password"]');
+            inputFields.forEach(input => {
+                input.classList.add('journal-input');
+            });
+        });
     </script>
 </body>
 </html>

@@ -60,97 +60,213 @@
 <!--
 w3.css
 -->
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home | ThoughtFlow</title>
+    <title>Journal | ThoughtFlow</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
-        /* Background with overlay */
+        /* Journal-themed styling */
         body {
             background: 
-                linear-gradient(rgba(245, 247, 250, 0.603), rgba(195, 207, 226, 0.7)),
-                url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80');
+                url('https://images.unsplash.com/photo-1601662528567-526cd06f6582?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
             min-height: 100vh;
+            font-family: 'Crimson Text', serif;
+            color: #3c2f23;
         }
 
-        /* Glassmorphism effects */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        /* Journal paper effect for content */
+        .journal-paper {
+            background: rgba(249, 245, 237, 0.92);
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.1) inset;
+            position: relative;
+            overflow: hidden;
         }
 
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.35);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            transition: all 0.3s;
-            color: #4a4a4a;
+        .journal-paper::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 30px;
+            height: 100%;
+            width: 1px;
+            background: rgba(180, 160, 120, 0.3);
         }
 
-        .glass-btn:hover {
-            background: rgba(255, 255, 255, 0.6);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        /* Journal lines for entry items */
+        .journal-lines {
+            background-image: repeating-linear-gradient(
+                transparent 0px,
+                transparent 23px,
+                rgba(180, 160, 120, 0.1) 23px,
+                rgba(180, 160, 120, 0.1) 24px
+            );
+            padding-left: 50px !important;
+        }
+
+        /* Header styling */
+        .journal-header {
+            border-bottom: 1px solid #d9c7a6;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .journal-header::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent 0%, #d9c7a6 20%, #d9c7a6 80%, transparent 100%);
         }
 
         /* Custom text colors */
         .text-primary {
-            color: #4a6fa5 !important;
+            color: #8b5a2b !important;
         }
 
-        /* Entry hover effect */
+        .text-secondary {
+            color: #6b4c2a !important;
+        }
+
+        /* Button styling */
+        .journal-btn {
+            background: rgba(222, 208, 182, 0.7);
+            border: 1px solid #c5ab87;
+            color: #5c4323;
+            transition: all 0.3s;
+            font-family: 'Crimson Pro', serif;
+        }
+
+        .journal-btn:hover {
+            background: rgba(196, 177, 143, 0.8);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
+            color: #4a3519;
+        }
+
+        /* Entry items */
+        .entry-item {
+            border-bottom: 1px solid rgba(197, 171, 135, 0.3) !important;
+            transition: all 0.2s;
+            padding-left: 50px !important;
+        }
+
         .entry-item:hover {
-            background: rgba(255, 255, 255, 0.4) !important;
+            background: rgba(222, 208, 182, 0.3) !important;
+        }
+
+        /* Decorative elements */
+        .journal-date {
+            font-style: italic;
+            color: #8b7d6b;
+        }
+
+        .fa-book-open, .fa-sign-out-alt, .fa-plus, .fa-chevron-right {
+            color: #8b5a2b;
+        }
+
+        /* Decorative corner elements */
+        .corner {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-color: #c5ab87;
+            border-style: solid;
+            border-width: 0;
+        }
+
+        .corner-tl {
+            top: 10px;
+            left: 10px;
+            border-top-width: 1px;
+            border-left-width: 1px;
+        }
+
+        .corner-tr {
+            top: 10px;
+            right: 10px;
+            border-top-width: 1px;
+            border-right-width: 1px;
+        }
+
+        .corner-bl {
+            bottom: 10px;
+            left: 10px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+        }
+
+        .corner-br {
+            bottom: 10px;
+            right: 10px;
+            border-bottom-width: 1px;
+            border-right-width: 1px;
         }
     </style>
 </head>
 <body class="w3-padding-32">
     <div class="w3-container" style="max-width:800px; margin:auto;">
         <!-- Header -->
-        <div class="w3-row w3-margin-bottom glass-card w3-padding">
+        <div class="w3-row w3-margin-bottom journal-paper w3-padding-large">
+            <div class="corner corner-tl"></div>
+            <div class="corner corner-tr"></div>
+            <div class="corner corner-bl"></div>
+            <div class="corner corner-br"></div>
+            
             <div class="w3-col s8 m9 w3-left-align">
-                <h1 class="w3-xxlarge text-primary"><b><i>~Thoughts~</i></b></h1>
-                <h1 class="w3-xxlarge text-primary"><b>Welcome to Your Thoughts</b></h1>
-                <p class="w3-large w3-text-light w3-margin-top w3-margin-bottom"></p>
+                <h1 class="w3-xxlarge text-primary" style="font-family: 'Crimson Pro', serif; margin-bottom: 5px;">
+                    <b><i class="fas fa-book-open w3-margin-right"></i>ThoughtFlow Journal</b>
+                </h1>
+                <p class="w3-large text-secondary">Capture your thoughts, memories, and ideas</p>
             </div>
             <div class="w3-col s4 m3 w3-right-align">
-                <a href="{% url 'entries:view_all_entries' %}" class="w3-button glass-btn w3-round-large">
-                    <i class="fas fa-plus w3-margin-right"></i>View All
+                <a href="{% url 'entries:view_all_entries' %}" class="w3-button journal-btn w3-round">
+                    <i class="fas fa-list w3-margin-right"></i>All Entries
                 </a>
             </div>
         </div>
 
         <!-- User Info -->
-        <div class="glass-card w3-padding w3-margin-bottom">
-            <div class="w3-left-align">
-                <span class="w3-large">Logged in as: <b>{{ user.username }}</b></span>
-                <h2 class="text-primary">Hi👋, {{ user.username }}</h2>
-                <a href="{% url 'user:logout' %}" class="w3-button glass-btn w3-round-large">
+        <div class="journal-paper w3-padding-large w3-margin-bottom">
+            <div class="corner corner-tl"></div>
+            <div class="corner corner-tr"></div>
+            <div class="corner corner-bl"></div>
+            <div class="corner corner-br"></div>
+            
+            <div class="w3-left-align journal-lines">
+                <h2 class="text-primary" style="margin-top: 0;">Welcome, <b>{{ user.username }}</b></h2>
+                <p class="journal-date">Today is {% now "F j, Y" %}</p>
+                <a href="{% url 'user:logout' %}" class="w3-button journal-btn w3-round">
                     <i class="fas fa-sign-out-alt w3-margin-right"></i>Logout
                 </a>
             </div>
         </div>
 
         <!-- Entries List -->
-        <div class="glass-card" style="overflow:hidden;">
+        <div class="journal-paper" style="overflow:hidden;">
+            <div class="corner corner-tl"></div>
+            <div class="corner corner-tr"></div>
+            <div class="corner corner-bl"></div>
+            <div class="corner corner-br"></div>
+            
             {% if Entry %}
             <ul class="w3-ul w3-hoverable" style="margin:0;">
                 {% for entry in Entry %}
-                <li class="entry-item w3-padding-16" style="border-bottom: 1px solid rgba(255,255,255,0.3);">
-                    <a href="{% url 'entries:view_entry' entry.id %}" class="w3-row" style="text-decoration:none;">
+                <li class="entry-item w3-padding-16 journal-lines">
+                    <a href="{% url 'entries:view_entry' entry.id %}" class="w3-row" style="text-decoration:none; color: inherit;">
                         <div class="w3-col s10 m10">
                             <span class="w3-large">{{ entry.title }}</span><br>
-                            <span class="w3-text-grey">{{ entry.created_at }}</span>
+                            <span class="w3-text-grey journal-date">{{ entry.created_at }}</span>
                         </div>
                         <div class="w3-col s2 m2 w3-center">
                             <i class="fas fa-chevron-right text-primary"></i>
@@ -160,12 +276,12 @@ w3.css
                 {% endfor %}
             </ul>
             {% else %}
-            <div class="w3-padding-64 w3-center">
-                <i class="fas fa-book-open text-primary" style="font-size:64px;"></i>
-                <p class="w3-large w3-text-grey">Add Entries</p>
-                <!--Adding a list of recently created entries-->
-                <a href="{% url 'entries:create_entry' %}" class="w3-button glass-btn w3-round-large" style="background-color:rgba(74, 111, 165, 0.8);color:white;">
-                    <i class="fas fa-plus w3-margin-right"></i>Create Your Entry
+            <div class="w3-padding-64 w3-center journal-lines" style="padding-left: 50px !important;">
+                <i class="fas fa-feather-alt text-primary" style="font-size:64px;"></i>
+                <p class="w3-large text-secondary">Your journal is waiting for its first entry</p>
+                <p class="w3-text-grey">Begin your writing journey today</p>
+                <a href="{% url 'entries:create_entry' %}" class="w3-button journal-btn w3-round" style="margin-top: 20px;">
+                    <i class="fas fa-plus w3-margin-right"></i>New Entry
                 </a>
             </div>
             {% endif %}
