@@ -54,4 +54,7 @@ class SearchForm(forms.Form):
     }
 
 class MultiDeleteForm(forms.Form):
-    selections = forms.ModelMultipleChoiceField(queryset=Entry.objects.all(), widget=forms.CheckboxSelectMultiple)
+    selections = forms.ModelMultipleChoiceField(
+        queryset=Entry.objects.all(),
+        widget=forms.CheckboxSelectMultiple(),
+    )
