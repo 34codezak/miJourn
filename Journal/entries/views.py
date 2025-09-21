@@ -105,7 +105,7 @@ def multi_delete(request):
             count = selected.count()
             selected.delete()
             messages.success(request, f'Deleted {count} entries successfully.')
-            return redirect('entries:all_entries')
+            return redirect('entries:view_all_entries')
     else:
         form = MultiDeleteForm()
 
