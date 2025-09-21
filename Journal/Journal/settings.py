@@ -24,25 +24,38 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Production deployments must define the SECRET_KEY environment variable.
-SECRET_KEY = os.environ.get(
-    'SECRET_KEY',
-    'django-insecure-05qfvk6!6msn=ovnb&wnx&4s@=40qx(js+b1_5fy(uistaay^x',
-)
+DEFAULT_SECRET_KEY = 'django-insecure-05qfvk6!6msn=ovnb&wnx&4s@=40qx(js+b1_5fy(uistaay^x'
+SECRET_KEY = os.environ.get('SECRET_KEY', DEFAULT_SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', 'True').lower() in {'1', 'true', 't', 'yes'}
 
-if SECRET_KEY == 'django-insecure-05qfvk6!6msn=ovnb&wnx&4s@=40qx(js+b1_5fy(uistaay^x' and not DEBUG:
+if SECRET_KEY == DEFAULT_SECRET_KEY and not DEBUG:
     raise ImproperlyConfigured('SECRET_KEY environment variable must be set in production.')
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 ALLOWED_HOSTS = ['ThoughtFlow.onrender.com', '127.0.0.1', 'localhost']
 
+# ----------------------------------------------------------------------------
+# Environment configuration notes
+#
+# When deploying to Heroku or any other production environment, set the
+# following variables (e.g. in a .env file or via ``heroku config:set``):
+#   SECRET_KEY=your-production-secret-key
+#   DEBUG=False
+#   DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/DB_NAME
+#   ALLOWED_HOSTS=your-app-hostname
+# Additional social auth and email credentials below should also be stored as
+# environment variables rather than committing secrets to version control.
+# ----------------------------------------------------------------------------
+
 DATABASES = {
-    # Defaults to the local SQLite database when DATABASE_URL isn't provided.
     'default': dj_database_url.config(
+        # Use SQLite locally so new developers can run the project without
+        # setting up Postgres. Override with DATABASE_URL for production/Heroku.
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
     )
 }
 
