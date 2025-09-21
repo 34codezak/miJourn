@@ -18,7 +18,7 @@
 {% endif %}
 
 <ul>
-    {% for entry in Entry %}
+    {% for entry in entries %}
     <li>
         <a href="{% url 'entries:view_entry' entry.id %}">{{ entry.title }}</a>
         ({{ entry.created_at }})
