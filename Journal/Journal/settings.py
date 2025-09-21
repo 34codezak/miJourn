@@ -32,7 +32,10 @@ DEBUG = False
 ALLOWED_HOSTS = ['ThoughtFlow.onrender.com', '127.0.0.1', 'localhost']
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    # Defaults to the local SQLite database when DATABASE_URL isn't provided.
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+    )
 }
 
 
@@ -90,16 +93,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Thought',         # Database name
-        'USER': 'zaki',     # Username you created
-        'PASSWORD': 'your_password', # Password you set
-        'HOST': 'localhost',          # Or your server IP
-        'PORT': '5432',                   # Default port 5432
-    }
-}
+# To use PostgreSQL (or another database engine), add a DATABASE_URL entry to your
+# .env file. For example:
+# DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/DB_NAME
 
 
 # Password validation
