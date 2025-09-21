@@ -5,13 +5,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
+from entries.models import Entry
 
 
 # Home view
 @login_required(login_url='user:login')
 class HomeView:
     def get(self, request):
-        return render(request, 'home.html')
+        entries = Entry.objects.filter(user=request.user).order_by('-created_at')
+        return render(request, 'home.html', {'entries': entries})
     
 # Login view
 class LoginView:
