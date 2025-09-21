@@ -10,7 +10,7 @@
                 </div>
                 
                 <div class="card-body p-4">
-                    <form method="get" action="{% url 'journal:search' %}">
+                    <form method="get" action="{% url 'entries:search_entries' %}">
                         <div class="input-group mb-4">
                             {{ form.query }}
                             <button class="btn btn-auth-primary" type="submit">
@@ -31,7 +31,7 @@
                                         <small>{{ entry.created_at|date:"M d, Y" }}</small>
                                     </div>
                                     <p class="mb-1">{{ entry.content|truncatewords:20 }}</p>
-                                    <a href="{% url 'journal:entry_detail' entry.id %}" class="text-warning">Read more</a>
+                                    <a href="{% url 'entries:view_entry' entry.id %}" class="text-warning">Read more</a>
                                 </div>
                                 {% endfor %}
                             </div>
