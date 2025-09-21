@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from .models import Entries, Tag, EntryReminder
+from .models import Entry, Tag, EntryReminder
 
 class EntriesSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True) # Username 
-    tags = serializers.SlugRelatedField(many=True, read_only=True, slug_field='name', queryset=Tag.objects.all())
+    tags = serializers.SlugRelatedField(many=True, read_only=True, slug_field='name')
     class Meta:
-        model = Entries
+        model = Entry
         fields = ['id', 'user', 'title', 'content',  'tags', 'created_at', 'updated_at']
 
 class TagSerializer(serializers.ModelSerializer):
