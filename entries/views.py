@@ -77,21 +77,25 @@ from .models import Entry
 from .forms import SearchForm
 
 def search_entries(request):
-    form = SearchForm()
+    form = SearchForm(request.GET or None)
     results = []
-    q = None
-    
-    if 'query' in request.GET:
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            query = form.cleaned_data['q']
+    query = ''
+
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        if query:
             results = Entry.objects.filter(
-                Q(title__icontains=query) | 
+                Q(title__icontains=query) |
                 Q(content__icontains=query)
             )
-            q = query
-    
-    return render(request, 'entries/search_entries.html', {'form': form, 'results': results, 'q': q})
+
+    context = {
+        'form': form,
+        'results': results,
+        'query': query,
+    }
+
+    return render(request, 'entries/search_entries.html', context)
 
 from .forms import MultiDeleteForm
 from django.contrib import messages
