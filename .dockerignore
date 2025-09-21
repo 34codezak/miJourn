@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Environments
+.env
+venv/
+.venv/
+
+# Version control
+.git
+.gitignore
+
+# Django artifacts
+Journal/db.sqlite3
+Journal/staticfiles/
+
+# Misc
+*.log
