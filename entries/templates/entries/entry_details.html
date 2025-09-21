@@ -44,113 +44,252 @@ w3.css
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* Background with overlay */
+        /* Journal-themed styling */
         body {
             background: 
-                linear-gradient(rgba(245, 247, 250, 0.85), rgba(195, 207, 226, 0.85)),
-                url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+                url('https://images.unsplash.com/photo-1586074299757-dc655f18518c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'),
+                url('https://images.unsplash.com/photo-1643330683233-ff2ac89b002c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover, 200px;
+            background-position: center, center;
+            background-blend-mode: overlay;
+            background-color: rgba(245, 236, 220, 0.85);
             min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            padding: 20px 0;
         }
 
-        /* Glassmorphism effects */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        /* Journal paper effect */
+        .journal-card {
+            background: #fdfcf7;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 25px;
         }
 
-        .glass-header {
-            background: rgba(58, 74, 110, 0.8);
-            color: white;
-            border-radius: 16px 16px 0 0;
+        .journal-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 40px;
+            bottom: 0;
+            width: 2px;
+            background: rgba(139, 69, 19, 0.2);
         }
 
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+        .journal-header {
+            background: #8b4513;
+            color: #f8f4e9;
+            padding: 16px 20px 16px 60px;
+            position: relative;
+            font-family: 'Caveat', cursive;
+            border-bottom: 1px solid #d1c9b8;
+        }
+
+        .journal-header h2 {
+            font-weight: 700;
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .journal-content {
+            padding: 24px;
+            padding-left: 56px;
+            position: relative;
+        }
+
+        /* Handwritten title */
+        .journal-title {
+            font-family: 'Caveat', cursive;
+            font-size: 32px;
+            color: #8b4513;
+            margin: 10px 0 20px;
+            line-height: 1.2;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #d1c9b8;
+        }
+
+        /* Decorative elements */
+        .paper-clip {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            width: 20px;
+            height: 40px;
+            background: #d1d1d1;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .tape {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 20px;
+            background: rgba(255, 255, 204, 0.7);
+            transform: rotate(-15deg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Button styling */
+        .journal-btn {
+            background: #f8f4e9;
+            border: 1px solid #d1c9b8;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            color: #5a4c39;
             transition: all 0.3s;
-            color: #3a4a6e;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .glass-btn:hover {
-            background: rgba(255, 255, 255, 0.7);
+        .journal-btn:hover {
+            background: #e8dfca;
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: #5a4c39;
+            text-decoration: none;
         }
 
-        /* Custom colors */
-        .text-primary {
-            color: #3a4a6e !important;
+        .journal-btn-edit {
+            background: #8b4513;
+            color: white;
+            border: 1px solid #6b3410;
+        }
+
+        .journal-btn-edit:hover {
+            background: #6b3410;
+            color: white;
         }
 
         /* Entry content styling */
         .entry-content {
             white-space: pre-line;
-            line-height: 1.6;
+            line-height: 1.8;
+            font-size: 16px;
+            color: #5a4c39;
+            font-family: 'Roboto', sans-serif;
+            padding: 10px 0;
+            border-left: 2px solid #e8dfca;
+            padding-left: 15px;
+            margin-left: 5px;
+        }
+
+        /* Info row styling */
+        .info-row {
+            padding: 12px 0;
+            border-bottom: 1px dashed #e8dfca;
+            margin-bottom: 10px;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: #8b4513;
+            font-size: 16px;
+        }
+
+        .info-value {
+            color: #5a4c39;
+            font-size: 16px;
+        }
+
+        /* Decorative line */
+        .decorative-line {
+            height: 1px;
+            background: linear-gradient(to right, transparent 0%, #d1c9b8 20%, #d1c9b8 80%, transparent 100%);
+            margin: 24px 0;
+        }
+
+        /* Footer styling */
+        .journal-footer {
+            background: #f8f4e9;
+            padding: 12px 20px;
+            text-align: center;
+            border-top: 1px solid #d1c9b8;
+            color: #8b4513;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        /* Handwritten note effect */
+        .handwritten-note {
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            color: #5a4c39;
+            margin: 15px 0;
         }
     </style>
 </head>
 <body class="w3-padding-32">
     <div class="w3-container" style="max-width:800px; margin:auto;">
-        <div class="glass-card">
+        <div class="journal-card">
+            <!-- Decorative elements -->
+            <div class="paper-clip"></div>
+            <div class="tape"></div>
+            
             <!-- Header -->
-            <div class="w3-padding glass-header">
-                <h2 class="w3-medium"><i class="fas fa-file-alt w3-margin-right"></i>Entry Details</h2>
+            <div class="journal-header">
+                <h2><i class="fas fa-book-open w3-margin-right"></i>Journal Entry</h2>
             </div>
 
             <!-- Content -->
-            <div class="w3-padding">
-                <div class="w3-row w3-margin-bottom">
+            <div class="journal-content">
+                <div class="w3-row info-row">
                     <div class="w3-col s3">
-                        <span class="w3-text-primary"><b>Title:</b></span>
+                        <span class="info-label"><i class="fas fa-heading"></i> Title:</span>
                     </div>
                     <div class="w3-col s9">
-                        <span>{{ entry.title }}</span>
+                        <span class="journal-title">{{ entry.title }}</span>
                     </div>
                 </div>
 
-                <div class="w3-row w3-margin-bottom">
+                <div class="w3-row info-row">
                     <div class="w3-col s3">
-                        <span class="w3-text-primary"><b>Content:</b></span>
+                        <span class="info-label"><i class="fas fa-align-left"></i> Content:</span>
                     </div>
-                    <div class="w3-col s9 entry-content">
-                        {{ entry.content|linebreaks }}
+                    <div class="w3-col s9">
+                        <div class="entry-content">
+                            {{ entry.content|linebreaks }}
+                        </div>
                     </div>
                 </div>
 
-                <div class="w3-row w3-margin-bottom">
+                <div class="w3-row info-row" style="border-bottom: none;">
                     <div class="w3-col s3">
-                        <span class="w3-text-primary"><b>Created At:</b></span>
+                        <span class="info-label"><i class="far fa-calendar"></i> Created At:</span>
                     </div>
                     <div class="w3-col s9">
-                        <span>{{ entry.created_at }}</span>
+                        <span class="info-value">{{ entry.created_at }}</span>
                     </div>
                 </div>
             </div>
 
             <!-- Footer -->
-            <div class="w3-padding w3-center" style="border-top: 1px solid rgba(255,255,255,0.3);">
-                <small class="w3-text-grey">Entry ID: {{ entry.id }}</small>
+            <div class="journal-footer">
+                <small>Entry ID: {{ entry.id }}</small>
             </div>
         </div>
 
         <!-- Action Buttons -->
         <div class="w3-row w3-margin-top">
             <div class="w3-col s6 w3-left-align">
-                <a href="{% url 'entries:home' %}" class="w3-button glass-btn w3-round-large">
-                    <i class="fas fa-arrow-left w3-margin-right"></i>Back
+                <a href="{% url 'entries:home' %}" class="journal-btn">
+                    <i class="fas fa-arrow-left w3-margin-right"></i>Back to Journal
                 </a>
             </div>
             <div class="w3-col s6 w3-right-align">
-                <a href="{% url 'entries:update_entry' entry.id %}" class="w3-button glass-btn w3-round-large">
-                    <i class="fas fa-edit w3-margin-right"></i>Edit
+                <a href="{% url 'entries:update_entry' entry.id %}" class="journal-btn journal-btn-edit">
+                    <i class="fas fa-edit w3-margin-right"></i>Edit Entry
                 </a>
             </div>
         </div>

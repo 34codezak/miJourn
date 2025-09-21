@@ -38,3 +38,198 @@
 <!--
 w3.css
 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ThoughtFlow - Delete Entry - {{ entry.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Journal-themed styling */
+        body {
+            background: 
+                url('https://images.unsplash.com/photo-1586074299757-dc655f18518c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'),
+                url('https://images.unsplash.com/photo-1643330683233-ff2ac89b002c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover, 200px;
+            background-position: center, center;
+            background-blend-mode: overlay;
+            background-color: rgba(245, 236, 220, 0.85);
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Journal paper effect */
+        .journal-card {
+            background: #fdfcf7;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .journal-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 40px;
+            bottom: 0;
+            width: 2px;
+            background: rgba(220, 53, 69, 0.2);
+        }
+
+        .journal-header {
+            background: #d14836;
+            color: white;
+            padding: 16px;
+            position: relative;
+            font-family: 'Caveat', cursive;
+        }
+
+        .journal-header h2 {
+            font-weight: 700;
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .journal-content {
+            padding: 24px;
+            padding-left: 56px;
+            position: relative;
+        }
+
+        /* Handwritten title */
+        .journal-title {
+            font-family: 'Caveat', cursive;
+            font-size: 32px;
+            color: #8b4513;
+            margin: 10px 0;
+            line-height: 1.2;
+        }
+
+        /* Decorative elements */
+        .paper-clip {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            width: 20px;
+            height: 40px;
+            background: #d1d1d1;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .tape {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 20px;
+            background: rgba(255, 255, 204, 0.7);
+            transform: rotate(-15deg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Button styling */
+        .journal-btn {
+            background: #f8f4e9;
+            border: 1px solid #d1c9b8;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            color: #5a4c39;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .journal-btn:hover {
+            background: #e8dfca;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .journal-btn-danger {
+            background: #d14836;
+            color: white;
+            border: 1px solid #b03c2c;
+        }
+
+        .journal-btn-danger:hover {
+            background: #b03c2c;
+        }
+
+        /* Warning icon styling */
+        .warning-icon {
+            color: #d14836;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Decorative line */
+        .decorative-line {
+            height: 1px;
+            background: linear-gradient(to right, transparent 0%, #d1c9b8 20%, #d1c9b8 80%, transparent 100%);
+            margin: 24px 0;
+        }
+
+        /* Handwritten note effect */
+        .handwritten-note {
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            color: #5a4c39;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body class="w3-padding-32">
+    <div class="w3-container" style="max-width:640px; margin:auto;">
+        <div class="journal-card">
+            <!-- Decorative elements -->
+            <div class="paper-clip"></div>
+            <div class="tape"></div>
+            
+            <!-- Header -->
+            <div class="journal-header">
+                <h2><i class="fas fa-exclamation-triangle w3-margin-right"></i>Delete Journal Entry</h2>
+            </div>
+
+            <!-- Content -->
+            <div class="journal-content w3-center">
+                <div class="warning-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                
+                <p class="handwritten-note">Are you certain you wish to remove</p>
+                <p class="journal-title">"{{ entry.title }}"</p>
+                <p class="handwritten-note">from your journal?</p>
+                
+                <div class="decorative-line"></div>
+                
+                <p class="w3-text-grey" style="font-style: italic;">This action cannot be undone. Once deleted, your memories and thoughts will be permanently lost.</p>
+            </div>
+
+            <!-- Form -->
+            <form method="post" class="w3-padding" style="padding-top: 0;">
+                {% csrf_token %}
+                <div class="w3-row" style="margin: 0 16px 24px;">
+                    <div class="w3-col s6 w3-left-align">
+                        <a href="{% url 'entries:view_entry' entry.id %}" class="journal-btn">
+                            <i class="fas fa-times w3-margin-right"></i>Cancel
+                        </a>
+                    </div>
+                    <div class="w3-col s6 w3-right-align">
+                        <button type="submit" class="journal-btn journal-btn-danger">
+                            <i class="fas fa-trash-alt w3-margin-right"></i>Confirm Delete
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

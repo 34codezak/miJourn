@@ -42,7 +42,6 @@
 <!--
 w3.css
 -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,61 +49,158 @@ w3.css
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* Background with overlay */
+        /* Journal-themed styling */
         body {
             background: 
-                linear-gradient(rgba(245, 247, 250, 0.85), rgba(195, 207, 226, 0.85)),
-                url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+                url('https://images.unsplash.com/photo-1586074299757-dc655f18518c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'),
+                url('https://images.unsplash.com/photo-1643330683233-ff2ac89b002c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover, 200px;
+            background-position: center, center;
+            background-blend-mode: overlay;
+            background-color: rgba(245, 236, 220, 0.85);
             min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            padding: 20px 0;
         }
 
-        /* Glassmorphism effects */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        /* Journal paper effect */
+        .journal-card {
+            background: #fdfcf7;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 25px;
         }
 
-        .glass-header {
-            background: rgba(58, 74, 110, 0.8);
-            color: white;
-            border-radius: 16px 16px 0 0;
+        .journal-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 40px;
+            bottom: 0;
+            width: 2px;
+            background: rgba(139, 69, 19, 0.2);
         }
 
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            transition: all 0.3s;
-            color: #3a4a6e;
+        .journal-header {
+            background: #8b4513;
+            color: #f8f4e9;
+            padding: 16px 20px 16px 60px;
+            position: relative;
+            font-family: 'Caveat', cursive;
+            border-bottom: 1px solid #d1c9b8;
         }
 
-        .glass-btn:hover {
-            background: rgba(255, 255, 255, 0.7);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        .journal-header h2 {
+            font-weight: 700;
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
         }
 
-        .glass-btn-danger {
-            background: rgba(220, 53, 69, 0.7);
-            color: white;
-        }
-
-        .glass-btn-danger:hover {
-            background: rgba(220, 53, 69, 0.9);
-        }
-
-        /* Entry content styling */
-        .entry-content {
-            white-space: pre-line;
+        .journal-content {
+            padding: 24px;
+            padding-left: 56px;
+            position: relative;
+            font-family: 'Roboto', sans-serif;
+            color: #5a4c39;
             line-height: 1.8;
-            padding: 16px;
+            white-space: pre-line;
+        }
+
+        /* Handwritten title */
+        .journal-title {
+            font-family: 'Caveat', cursive;
+            font-size: 32px;
+            color: #8b4513;
+            margin: 10px 0 20px;
+            line-height: 1.2;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #d1c9b8;
+        }
+
+        /* Decorative elements */
+        .paper-clip {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            width: 20px;
+            height: 40px;
+            background: #d1d1d1;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .tape {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 20px;
+            background: rgba(255, 255, 204, 0.7);
+            transform: rotate(-15deg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Button styling */
+        .journal-btn {
+            background: #f8f4e9;
+            border: 1px solid #d1c9b8;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            color: #5a4c39;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .journal-btn:hover {
+            background: #e8dfca;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: #5a4c39;
+            text-decoration: none;
+        }
+
+        .journal-btn-danger {
+            background: #d14836;
+            color: white;
+            border: 1px solid #b03c2c;
+        }
+
+        .journal-btn-danger:hover {
+            background: #b03c2c;
+            color: white;
+        }
+
+        .journal-btn-primary {
+            background: #8b4513;
+            color: white;
+            border: 1px solid #6b3410;
+        }
+
+        .journal-btn-primary:hover {
+            background: #6b3410;
+            color: white;
+        }
+
+        /* Footer styling */
+        .journal-footer {
+            background: #f8f4e9;
+            padding: 12px 20px;
+            text-align: center;
+            border-top: 1px solid #d1c9b8;
+            color: #8b4513;
+            font-size: 14px;
+            font-style: italic;
         }
 
         /* Button group spacing */
@@ -114,6 +210,52 @@ w3.css
         .btn-group-spaced > *:last-child {
             margin-right: 0;
         }
+
+        /* Modal styling */
+        .journal-modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(90, 76, 57, 0.7);
+        }
+
+        .journal-modal-content {
+            background-color: #fdfcf7;
+            margin: 10% auto;
+            padding: 0;
+            border: 1px solid #d1c9b8;
+            border-radius: 4px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .journal-modal-header {
+            padding: 16px 20px;
+            background: #8b4513;
+            color: #f8f4e9;
+            font-family: 'Caveat', cursive;
+            font-size: 24px;
+            border-bottom: 1px solid #d1c9b8;
+        }
+
+        .journal-modal-body {
+            padding: 20px;
+            color: #5a4c39;
+        }
+
+        .journal-modal-footer {
+            padding: 16px 20px;
+            text-align: right;
+            border-top: 1px solid #d1c9b8;
+        }
     </style>
 </head>
 <body class="w3-padding-32">
@@ -121,74 +263,80 @@ w3.css
         <!-- Action Buttons -->
         <div class="w3-row w3-margin-bottom">
             <div class="w3-col s6 w3-left-align">
-                <a href="{% url 'entries:home' %}" class="w3-button glass-btn w3-round-large">
-                    <i class="fas fa-arrow-left w3-margin-right"></i>Back to Home
+                <a href="{% url 'entries:home' %}" class="journal-btn">
+                    <i class="fas fa-arrow-left w3-margin-right"></i>Back to Journal
                 </a>
             </div>
             <div class="w3-col s6 w3-right-align btn-group-spaced">
-                <a href="{% url 'entries:update_entry' entry.id %}" class="w3-button glass-btn w3-round-large">
+                <a href="{% url 'entries:update_entry' entry.id %}" class="journal-btn journal-btn-primary">
                     <i class="fas fa-edit w3-margin-right"></i>Update
                 </a>
-                <a href="{% url 'entries:delete_entry' entry.id %}" class="w3-button glass-btn glass-btn-danger w3-round-large">
+                <a href="#" id="deleteBtn" class="journal-btn journal-btn-danger">
                     <i class="fas fa-trash w3-margin-right"></i>Delete
                 </a>
             </div>
         </div>
 
         <!-- Entry Card -->
-        <div class="glass-card w3-margin-bottom">
-            <div class="w3-padding glass-header">
-                <h2 class="w3-medium">{{ entry.title }}</h2>
+        <div class="journal-card">
+            <!-- Decorative elements -->
+            <div class="paper-clip"></div>
+            <div class="tape"></div>
+            
+            <div class="journal-header">
+                <h2><i class="fas fa-book-open w3-margin-right"></i>{{ entry.title }}</h2>
             </div>
-            <div class="entry-content">
+            <div class="journal-content">
                 {{ entry.content|linebreaks }}
             </div>
-            <div class="w3-padding w3-center" style="border-top: 1px solid rgba(255,255,255,0.3);">
-                <small class="w3-text-grey">Created at: {{ entry.created_at }}</small>
+            <div class="journal-footer">
+                <small>Created at: {{ entry.created_at }}</small>
             </div>
         </div>
 
         <!-- Bottom Navigation -->
         <div class="w3-center">
-            <a href="{% url 'entries:view_all_entries' %}" class="w3-button glass-btn w3-round-large">
+            <a href="{% url 'entries:view_all_entries' %}" class="journal-btn">
                 <i class="fas fa-list w3-margin-right"></i>Back to All Entries
             </a>
         </div>
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <div id="deleteModal" class="w3-modal">
-        <div class="w3-modal-content glass-card" style="max-width:500px">
-            <div class="w3-container">
-                <div class="w3-padding glass-header">
-                    <h3>Confirm Deletion</h3>
-                </div>
-                <div class="w3-padding">
-                    <p>Are you sure you want to delete this entry?</p>
-                    <div class="w3-row">
-                        <div class="w3-col s6 w3-left-align">
-                            <button onclick="document.getElementById('deleteModal').style.display='none'" 
-                                    class="w3-button glass-btn w3-round-large">
-                                Cancel
-                            </button>
-                        </div>
-                        <div class="w3-col s6 w3-right-align">
-                            <a href="{% url 'entries:delete_entry' entry.id %}" 
-                               class="w3-button glass-btn glass-btn-danger w3-round-large">
-                                Delete
-                            </a>
-                        </div>
-                    </div>
-                </div>
+    <div id="deleteModal" class="journal-modal">
+        <div class="journal-modal-content">
+            <div class="journal-modal-header">
+                <h3><i class="fas fa-exclamation-triangle w3-margin-right"></i>Confirm Deletion</h3>
+            </div>
+            <div class="journal-modal-body">
+                <p>Are you sure you want to delete this journal entry?</p>
+                <p class="w3-text-grey" style="font-style: italic;">This action cannot be undone.</p>
+            </div>
+            <div class="journal-modal-footer">
+                <button onclick="document.getElementById('deleteModal').style.display='none'" 
+                        class="journal-btn">
+                    Cancel
+                </button>
+                <a href="{% url 'entries:delete_entry' entry.id %}" 
+                   class="journal-btn journal-btn-danger">
+                    Delete
+                </a>
             </div>
         </div>
     </div>
 
     <script>
         // Delete confirmation
-        document.querySelector('a[href*="delete_entry"]').addEventListener('click', function(e) {
+        document.getElementById('deleteBtn').addEventListener('click', function(e) {
             e.preventDefault();
             document.getElementById('deleteModal').style.display='block';
+        });
+
+        // Close modal if clicked outside
+        window.addEventListener('click', function(event) {
+            if (event.target == document.getElementById('deleteModal')) {
+                document.getElementById('deleteModal').style.display = 'none';
+            }
         });
     </script>
 </body>

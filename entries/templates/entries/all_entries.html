@@ -1,18 +1,7 @@
-<!-->
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="mb-0">All Entries</h2>
-        
-        <a href="{% url 'entries:create_entry' %}" class="btn btn-primary">
-            <i class="fas fa-plus me-2"></i>New Entry
-        </a>
+<!--
 
-        <a href="{% url 'entries:home' %}" class="btn btn-primary">
-            <i class="fas fa-home me-2"></i>Home >>>
-        </a>
-    </div>
 
-    <!-- Search Form  
+ Search Form  
             <form method="get" class="mb-4" >
                 <div class="input-group">
                     <input type="text" name="q" class="form-control" placeholder="Search for an entry">
@@ -42,7 +31,7 @@
     {% endif %}
 </div>
 
-<!-- Required CSS/JS (put in your base template)  
+  Required CSS/JS (put in your base template)  
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -52,7 +41,6 @@
 <!--
 w3.css
 -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -217,31 +205,97 @@ w3.css
             border-bottom-width: 1px;
             border-right-width: 1px;
         }
+        
+        /* Custom header styling for "All Journal Entries" */
+        .custom-header {
+            background-color: #8b7d6b;
+            color:  rgb(218, 183, 138);
+            padding: 15px 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-family: 'Crimson Pro', serif;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(139, 125, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .custom-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, #8b5a2b, #c5ab87, #8b5a2b);
+        }
+        
+        .custom-header h2 {
+            margin: 0;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .custom-header i {
+            margin-right: 12px;
+            font-size: 24px;
+        }
+        
+        /* Separated button containers */
+        .button-container {
+            position: absolute;
+            z-index: 10;
+        }
+        
+        .left-button {
+            top: 15px;
+            left: 15px;
+        }
+        
+        .right-button {
+            top: 15px;
+            right: 15px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .button-container {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                margin-bottom: 10px;
+                text-align: center;
+            }
+            
+            .custom-header h2 {
+                margin-top: 45px;
+            }
+        }
     </style>
 </head>
 <body class="w3-padding-32">
     <div class="w3-container" style="max-width:800px; margin:auto;">
-        <!-- Header -->
-        <div class="journal-paper w3-padding-large w3-margin-bottom">
-            <div class="corner corner-tl"></div>
-            <div class="corner corner-tr"></div>
-            <div class="corner corner-bl"></div>
-            <div class="corner corner-br"></div>
+        <!-- Custom Header -->
+        <div class="custom-header">
+            <!-- Home Button (Left Corner) -->
+            <div class="button-container left-button">
+                <a href="{% url 'entries:home' %}" class="w3-button journal-btn w3-round">
+                    <i class="fas fa-home w3-margin-right"></i>Home
+                </a>
+            </div>
             
-            <div class="w3-row">
-                <div class="w3-col s12 m6">
-                    <h2 class="w3-xlarge text-primary" style="font-family: 'Crimson Pro', serif; margin-top: 5px;">
-                        <b><i class="fas fa-book w3-margin-right"></i>All Journal Entries</b>
-                    </h2>
-                </div>
-                <div class="w3-col s12 m6 w3-right-align">
-                    <a href="{% url 'entries:create_entry' %}" class="w3-button journal-btn w3-round">
-                        <i class="fas fa-plus w3-margin-right"></i>New Entry
-                    </a>
-                    <a href="{% url 'entries:home' %}" class="w3-button journal-btn w3-round">
-                        <i class="fas fa-home w3-margin-right"></i>Home
-                    </a>
-                </div>
+            <!-- Header Title -->
+            <h2><i class="fas fa-book"></i>All Journal Entries</h2>
+            
+            <!-- New Entry Button (Right Corner) -->
+            <div class="button-container right-button">
+                <a href="{% url 'entries:create_entry' %}" class="w3-button journal-btn w3-round">
+                    <i class="fas fa-plus w3-margin-right"></i>New Entry
+                </a>
             </div>
         </div>
 

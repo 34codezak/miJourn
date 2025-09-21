@@ -267,58 +267,183 @@
     <title>Login | ThoughtFlow</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* Background with overlay */
+        /* Journal-themed styling */
         body {
             background: 
-                linear-gradient(rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8)),
-                url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+                url('https://images.unsplash.com/photo-1586074299757-dc655f18518c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'),
+                url('https://images.unsplash.com/photo-1643330683233-ff2ac89b002c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover, 200px;
+            background-position: center, center;
+            background-blend-mode: overlay;
+            background-color: rgba(245, 236, 220, 0.85);
             min-height: 100vh;
             display: flex;
             align-items: center;
+            font-family: 'Roboto', sans-serif;
         }
 
-        /* Glassmorphism effects */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        /* Journal paper effect */
+        .journal-card {
+            background: #fdfcf7;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
         }
 
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+        .journal-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 40px;
+            bottom: 0;
+            width: 2px;
+            background: rgba(139, 69, 19, 0.2);
+        }
+
+        .journal-header {
+            background: #8b4513;
+            color: #f8f4e9;
+            padding: 16px 20px 16px 60px;
+            position: relative;
+            font-family: 'Caveat', cursive;
+            border-bottom: 1px solid #d1c9b8;
+        }
+
+        .journal-header h2 {
+            font-weight: 700;
+            font-size: 28px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .journal-content {
+            padding: 24px;
+            padding-left: 56px;
+            position: relative;
+        }
+
+        /* Decorative elements */
+        .paper-clip {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            width: 20px;
+            height: 40px;
+            background: #d1d1d1;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .tape {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 20px;
+            background: rgba(255, 255, 204, 0.7);
+            transform: rotate(-15deg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Button styling */
+        .journal-btn {
+            background: #f8f4e9;
+            border: 1px solid #d1c9b8;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            color: #5a4c39;
             transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .journal-btn:hover {
+            background: #e8dfca;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: #5a4c39;
+            text-decoration: none;
+        }
+
+        .journal-btn-primary {
+            background: #8b4513;
+            color: white;
+            border: 1px solid #6b3410;
+        }
+
+        .journal-btn-primary:hover {
+            background: #6b3410;
             color: white;
         }
 
-        .glass-btn:hover {
-            background: rgba(255, 255, 255, 0.5);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        /* Form elements */
+        .journal-input {
+            background: #f8f4e9 !important;
+            border: 1px solid #d1c9b8 !important;
+            border-radius: 4px;
+            padding: 12px !important;
+            color: #5a4c39 !important;
+            font-family: 'Roboto', sans-serif;
         }
 
-        .glass-input {
-            background: rgba(255, 255, 255, 0.3) !important;
-            border: 1px solid rgba(255, 255, 255, 0.5) !important;
-            color: white !important;
+        .journal-input:focus {
+            border-color: #8b4513 !important;
+            box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.2) !important;
+            outline: none;
         }
 
-        .glass-input::placeholder {
-            color: rgba(255, 255, 255, 0.7) !important;
+        .journal-input::placeholder {
+            color: #9c8e76 !important;
         }
 
-        /* Form header */
-        .form-header {
-            background: rgba(71, 118, 230, 0.7);
-            color: white;
-            border-radius: 20px 20px 0 0;
+        /* Labels */
+        .journal-label {
+            font-weight: 500;
+            color: #8b4513;
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* Error styling */
+        .error-panel {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            padding: 12px;
+            color: #721c24;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        /* Checkbox styling */
+        .journal-checkbox {
+            margin-top: 15px;
+            color: #5a4c39;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #9c8e76;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #d1c9b8;
         }
 
         /* Social buttons */
@@ -329,30 +454,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.3);
-            color: white;
+            background: #f8f4e9;
+            color: #5a4c39;
             transition: all 0.3s;
+            border: 1px solid #d1c9b8;
         }
 
         .social-btn:hover {
             transform: translateY(-3px);
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Divider */
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 25px 0;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .divider::before,
-        .divider::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.3);
+            background: #e8dfca;
+            color: #5a4c39;
         }
 
         /* Password toggle */
@@ -362,31 +473,50 @@
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            color: rgba(255, 255, 255, 0.7);
+            color: #9c8e76;
         }
 
         .password-container {
             position: relative;
         }
 
-        /* Custom colors */
-        .text-light {
-            color: rgba(255, 255, 255, 0.9) !important;
+        /* Footer styling */
+        .journal-footer {
+            background: #f8f4e9;
+            padding: 16px 20px;
+            text-align: center;
+            border-top: 1px solid #d1c9b8;
+            color: #8b4513;
+            font-size: 14px;
+        }
+
+        .journal-footer a {
+            color: #8b4513;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .journal-footer a:hover {
+            color: #6b3410;
         }
     </style>
 </head>
 <body>
     <div class="w3-container" style="max-width:500px; margin:auto;">
-        <div class="glass-card">
+        <div class="journal-card">
+            <!-- Decorative elements -->
+            <div class="paper-clip"></div>
+            <div class="tape"></div>
+            
             <!-- Form Header -->
-            <div class="w3-padding-large form-header">
+            <div class="journal-header">
                 <div class="w3-row">
                     <div class="w3-col s10">
-                        <h2 class="w3-large"><i class="fas fa-sign-in-alt w3-margin-right"></i>Welcome Back</h2>
-                        <p class="w3-small">Sign in to continue to your account</p>
+                        <h2><i class="fas fa-feather-alt w3-margin-right"></i>Journal Login</h2>
+                        <p class="w3-small" style="margin: 5px 0 0; opacity: 0.9;">Sign in to your thought journal</p>
                     </div>
                     <div class="w3-col s2 w3-right-align">
-                        <a href="{% url 'user:home' %}" class="w3-button glass-btn w3-round-large w3-tiny">
+                        <a href="{% url 'user:home' %}" class="journal-btn" style="padding: 8px;">
                             <i class="fas fa-home"></i>
                         </a>
                     </div>
@@ -394,26 +524,26 @@
             </div>
 
             <!-- Form Body --> 
-            <div class="w3-padding-large">
+            <div class="journal-content">
                 <form method="post">
                     {% csrf_token %}
                     
                     {% if form.errors %}
-                    <div class="w3-panel w3-red w3-round-large w3-padding">
+                    <div class="error-panel">
                         <i class="fas fa-exclamation-circle w3-margin-right"></i>
                         Your username and password didn't match. Please try again.
                     </div>
                     {% endif %}
                     
                     <div class="w3-margin-bottom">
-                        <label class="w3-text-light"><b><i class="fas fa-user w3-margin-right"></i>Username</b></label>
-                        <input type="text" class="w3-input glass-input w3-round-large" name="username" id="id_username" required>
+                        <label class="journal-label"><b><i class="fas fa-user w3-margin-right"></i>Username</b></label>
+                        <input type="text" class="w3-input journal-input" name="username" id="id_username" required>
                     </div>
                     
                     <div class="w3-margin-bottom">
-                        <label class="w3-text-light"><b><i class="fas fa-lock w3-margin-right"></i>Password</b></label>
+                        <label class="journal-label"><b><i class="fas fa-lock w3-margin-right"></i>Password</b></label>
                         <div class="password-container">
-                            <input type="password" class="w3-input glass-input w3-round-large" name="password" id="id_password" required>
+                            <input type="password" class="w3-input journal-input" name="password" id="id_password" required>
                             <span class="password-toggle" onclick="togglePassword('id_password')">
                                 <i class="fas fa-eye"></i>
                             </span>
@@ -421,19 +551,18 @@
                     </div>
                     
                     <div class="w3-margin-bottom">
-                        <label class="w3-checkbox w3-text-light">
+                        <label class="w3-checkbox journal-checkbox">
                             <input type="checkbox" name="remember_me">
                             <span class="w3-checkmark"></span> Remember me
                         </label>
                     </div>
                     
-                    <button type="submit" class="w3-button glass-btn w3-round-large w3-block" 
-                            style="background: linear-gradient(to right, rgba(71, 118, 230, 0.8), rgba(142, 84, 233, 0.8));">
-                        <i class="fas fa-sign-in-alt w3-margin-right"></i>Login
+                    <button type="submit" class="w3-button journal-btn journal-btn-primary w3-block">
+                        <i class="fas fa-sign-in-alt w3-margin-right"></i>Sign In
                     </button>
                     
                     <div class="divider">
-                        <span>OR SIGN IN WITH</span>
+                        <span>OR CONTINUE WITH</span>
                     </div>
                     
                     <div class="w3-row w3-center w3-margin-bottom">
@@ -462,9 +591,9 @@
             </div>
 
             <!-- Form Footer --> 
-            <div class="w3-padding-large w3-center" style="border-top: 1px solid rgba(255,255,255,0.2);">
-                <p class="w3-small w3-text-light">Don't have an account? 
-                    <a href="{% url 'user:signup' %}" style="color: white; font-weight: bold;">Sign up here</a>
+            <div class="journal-footer">
+                <p class="w3-small">New to ThoughtFlow? 
+                    <a href="{% url 'user:signup' %}">Create a Journal Account</a>
                 </p>
             </div>
         </div>
