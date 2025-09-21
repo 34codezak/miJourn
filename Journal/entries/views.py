@@ -96,17 +96,17 @@ def search_entries(request):
 from .forms import MultiDeleteForm
 from django.contrib import messages
 
+
 def multi_delete(request):
     if request.method == 'POST':
         form = MultiDeleteForm(request.POST)
         if form.is_valid():
-            selected = form.cleaned_data['seletions']
+            selected = form.cleaned_data['selections']
             count = selected.count()
+            selected.delete()
             messages.success(request, f'Deleted {count} entries successfully.')
             return redirect('entries:all_entries')
-        else:
-            form = MultiDeleteForm()
+    else:
+        form = MultiDeleteForm()
 
-        return render(request, 'entries/multi_delete.html', {'form': form})
-    
-    
+    return render(request, 'entries/multi_delete.html', {'form': form})
