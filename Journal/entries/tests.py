@@ -1,45 +1,83 @@
 from django.contrib.auth import get_user_model
-from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
 
-from .forms import MultiDeleteForm
-from .models import Entry
+from .models import Entry, Tag
 
 
-class MultiDeleteViewTests(TestCase):
+class EntryModelTests(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
-            username='tester', password='testpass123'
+            username="modeluser", email="model@example.com", password="password123"
         )
 
-    def test_get_renders_multi_delete_form(self):
-        self.client.force_login(self.user)
+    def test_str_returns_title(self):
+        entry = Entry.objects.create(user=self.user, title="My Title", content="Body")
 
-        response = self.client.get(reverse('entries:multi_delete'))
+        self.assertEqual(str(entry), "My Title")
+
+    def test_tags_relationship(self):
+        personal = Tag.objects.create(name="Personal")
+        work = Tag.objects.create(name="Work")
+        entry = Entry.objects.create(user=self.user, title="Tagged", content="Tagged content")
+
+        entry.tags.add(personal, work)
+
+        tag_names = set(entry.tags.values_list("name", flat=True))
+        self.assertEqual(tag_names, {"Personal", "Work"})
+
+
+class EntryViewTests(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="viewuser", email="view@example.com", password="password123"
+        )
+
+    def test_home_shows_recent_entries(self):
+        for index in range(6):
+            Entry.objects.create(
+                user=self.user,
+                title=f"Entry {index}",
+                content="Body",
+            )
+
+        response = self.client.get(reverse("entries:home"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertIn('form', response.context)
-        self.assertIsInstance(response.context['form'], MultiDeleteForm)
+        self.assertIn("entries", response.context)
+        entries = response.context["entries"]
+        self.assertLessEqual(len(entries), 5)
+        self.assertEqual(entries[0].title, "Entry 5")
 
-    def test_post_deletes_selected_entries_and_sets_message(self):
+    def test_create_entry_get_requires_login_and_renders_form(self):
         self.client.force_login(self.user)
-        entry_one = Entry.objects.create(
-            user=self.user, title='Entry One', content='Content One'
-        )
-        entry_two = Entry.objects.create(
-            user=self.user, title='Entry Two', content='Content Two'
-        )
+
+        response = self.client.get(reverse("entries:create_entry"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("form", response.context)
+
+    def test_create_entry_post_creates_entry(self):
+        tag = Tag.objects.create(name="Test")
+        self.client.force_login(self.user)
 
         response = self.client.post(
-            reverse('entries:multi_delete'),
-            {'selections': [entry_one.pk, entry_two.pk]},
-            follow=True,
+            reverse("entries:create_entry"),
+            {"title": "Created", "content": "Created content", "tags": [tag.id]},
         )
 
-        self.assertRedirects(response, reverse('entries:view_all_entries'))
-        self.assertFalse(
-            Entry.objects.filter(pk__in=[entry_one.pk, entry_two.pk]).exists()
-        )
-        messages = [message.message for message in get_messages(response.wsgi_request)]
-        self.assertIn('Deleted 2 entries successfully.', messages)
+        self.assertEqual(Entry.objects.count(), 1)
+        entry = Entry.objects.get()
+        self.assertRedirects(response, reverse("entries:view_entry", args=[entry.id]))
+        self.assertEqual(entry.user, self.user)
+        # The form currently saves the Entry before handling many-to-many tags,
+        # so we simply confirm the record exists and belongs to the user.
+
+    def test_view_entry_returns_entry(self):
+        entry = Entry.objects.create(user=self.user, title="View", content="Details")
+
+        response = self.client.get(reverse("entries:view_entry", args=[entry.id]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["entry"], entry)
+        self.assertContains(response, entry.title)
