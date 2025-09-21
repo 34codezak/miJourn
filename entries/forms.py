@@ -57,4 +57,14 @@ class SearchForm(forms.Form):
     )
 
 class MultiDeleteForm(forms.Form):
-    selections = forms.ModelMultipleChoiceField(queryset=Entry.objects.all(), widget=forms.CheckboxSelectMultiple)
+    selections = forms.ModelMultipleChoiceField(
+        queryset=Entry.objects.none(),
+        widget=forms.CheckboxSelectMultiple(),
+    )
+
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if user is not None:
+            self.fields['selections'].queryset = Entry.objects.filter(user=user)
+        else:
+            self.fields['selections'].queryset = Entry.objects.none()

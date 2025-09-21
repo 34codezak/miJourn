@@ -1,15 +1,16 @@
 # entries/views.py
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.db.models import Q
+from django.shortcuts import get_object_or_404, redirect, render
+
+from .forms import EntryForm, MultiDeleteForm, SearchForm
 from .models import Entry
-from .forms import EntryForm
-from django.shortcuts import get_object_or_404
-from . import models
 
 # Entry view
+@login_required
 def home(request):
-    entries = models.Entry.objects.order_by('-created_at')[:5]
+    entries = Entry.objects.filter(user=request.user).order_by('-created_at')[:5]
     return render(request, 'entries/home.html', {'entries': entries})
 
 # Create entry view
@@ -36,7 +37,7 @@ def create_entry(request):
 
 @login_required
 def update_entry(request, entry_id):
-    entry = get_object_or_404(models.Entry, id=entry_id, user=request.user)
+    entry = get_object_or_404(Entry, id=entry_id, user=request.user)
     if request.method == 'POST':
         form = EntryForm(request.POST, instance=entry)
         if form.is_valid():
@@ -51,20 +52,22 @@ def update_entry(request, entry_id):
 # Delete entry view
 @login_required
 def delete_entry(request, entry_id):
-    entry = get_object_or_404(models.Entry, id=entry_id)
+    entry = get_object_or_404(Entry, id=entry_id, user=request.user)
     if request.method == 'POST':
         entry.delete()
         return redirect('entries:home')
     return render(request, 'entries/delete_entry.html', {'entry': entry})
 
 # View entry view
+@login_required
 def view_entry(request, entry_id):
-    entry = get_object_or_404(models.Entry, id=entry_id)
+    entry = get_object_or_404(Entry, id=entry_id, user=request.user)
     return render(request, 'entries/view_entry.html', {'entry': entry})
 
 # View all entries view
+@login_required
 def view_all_entries(request):
-    entries = models.Entry.objects.all().order_by('-created_at')  # Fixed variable name
+    entries = Entry.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'entries/all_entries.html', {'entries': entries})
 
 
@@ -72,10 +75,7 @@ def view_all_entries(request):
 def view_entry_details(request):
     return render(request, 'entries/entry_details.html')
 
-from django.db.models import Q
-from .models import Entry
-from .forms import SearchForm
-
+@login_required
 def search_entries(request):
     form = SearchForm(request.GET or None)
     results = []
@@ -84,7 +84,7 @@ def search_entries(request):
     if form.is_valid():
         query = form.cleaned_data['query']
         if query:
-            results = Entry.objects.filter(
+            results = Entry.objects.filter(user=request.user).filter(
                 Q(title__icontains=query) |
                 Q(content__icontains=query)
             )
@@ -97,20 +97,17 @@ def search_entries(request):
 
     return render(request, 'entries/search_entries.html', context)
 
-from .forms import MultiDeleteForm
-from django.contrib import messages
-
+@login_required
 def multi_delete(request):
     if request.method == 'POST':
-        form = MultiDeleteForm(request.POST)
+        form = MultiDeleteForm(request.POST, user=request.user)
         if form.is_valid():
-            selected = form.cleaned_data['seletions']
+            selected = form.cleaned_data['selections']
             count = selected.count()
+            selected.delete()
             messages.success(request, f'Deleted {count} entries successfully.')
-            return redirect('entries:all_entries')
-        else:
-            form = MultiDeleteForm()
+            return redirect('entries:view_all_entries')
+    else:
+        form = MultiDeleteForm(user=request.user)
 
-        return render(request, 'entries/multi_delete.html', {'form': form})
-    
-    
+    return render(request, 'entries/multi_delete.html', {'form': form})
