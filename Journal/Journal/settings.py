@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,10 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-05qfvk6!6msn=ovnb&wnx&4s@=40qx(js+b1_5fy(uistaay^x'
+# Production deployments must define the SECRET_KEY environment variable.
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'django-insecure-05qfvk6!6msn=ovnb&wnx&4s@=40qx(js+b1_5fy(uistaay^x',
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+
+if SECRET_KEY == 'django-insecure-05qfvk6!6msn=ovnb&wnx&4s@=40qx(js+b1_5fy(uistaay^x' and not DEBUG:
+    raise ImproperlyConfigured('SECRET_KEY environment variable must be set in production.')
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
@@ -137,8 +145,6 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
-SECRET_KEY = os.environ.get('SECRET_KEY')  # Add this in settings.py
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
