@@ -8,7 +8,7 @@ from .forms import EntryForm, MultiDeleteForm, SearchForm
 from .models import Entry
 
 # Entry view
-@login_required
+@login_required(login_url='user:login')
 def home(request):
     entries = Entry.objects.filter(user=request.user).order_by('-created_at')[:5]
     return render(request, 'entries/home.html', {'entries': entries})

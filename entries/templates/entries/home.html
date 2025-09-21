@@ -259,9 +259,14 @@ w3.css
             <div class="corner corner-bl"></div>
             <div class="corner corner-br"></div>
             
-            {% if Entry %}
+            {% if entries %}
+            <div class="w3-padding-large journal-lines" style="padding-left: 50px !important;">
+                <p class="w3-large text-secondary" style="margin: 0 0 10px 0;">
+                    We're glad to see you back. Here's what you've been writing lately:
+                </p>
+            </div>
             <ul class="w3-ul w3-hoverable" style="margin:0;">
-                {% for entry in Entry %}
+                {% for entry in entries %}
                 <li class="entry-item w3-padding-16 journal-lines">
                     <a href="{% url 'entries:view_entry' entry.id %}" class="w3-row" style="text-decoration:none; color: inherit;">
                         <div class="w3-col s10 m10">
